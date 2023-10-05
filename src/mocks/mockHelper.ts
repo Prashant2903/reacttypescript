@@ -2,9 +2,9 @@ import environment from '@/environment'
 import { IBaseRes } from '@/services/models/common'
 
 /**
- * 依據傳入的 api 相對路徑，取得完整 api 路徑
- * @param relatedApiPath  api 相對路徑
- * @returns 完整 api 路徑
+ * Get the complete api path based on the incoming api relative path
+ * @param relatedApiPath  api relative path
+ * @returns full api path
  */
 export const getApiUrl = (relatedApiPath: string) => {
   const isFullUrl = environment.apiUrl.indexOf('http') > -1
@@ -17,28 +17,28 @@ export const getApiUrl = (relatedApiPath: string) => {
 }
 
 /**
- * 隨機產生固定長度的整數
- * @param length 數字長度
- * @returns 整數
+ * Randomly generate fixed-length integers
+ * @param length Number length
+ * @returns integer
  */
 export const getRandomInt = (length: number) => {
   return Math.floor(Math.pow(10, length - 1) + Math.random() * 9 * Math.pow(10, length - 1))
 }
 
 /**
- * 隨機產生在範圍內的整數
- * @param min 下限
- * @param max 上限
- * @returns 整數
+ * Randomly generate an integer within the range
+ * @param min lower limit
+ * @param max upper limit
+ * @returns integer
  */
 export const getRandomIntRange = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
 /**
- * 隨機產生在陣列內的項目
- * @param items 待選選項
- * @returns 選項
+ * Randomly generate items in an array
+ * @param items Options to be selected
+ * @returns Options
  */
 export const getRandomArrayItem = (items: number[] | string[] | boolean[]) => {
   const randomIndex = Math.floor(Math.random() * items.length)
@@ -46,9 +46,9 @@ export const getRandomArrayItem = (items: number[] | string[] | boolean[]) => {
 }
 
 /**
- * 隨機產生陣列
- * @param arraySize 陣列大小
- * @param createItem 產生陣列項目的方法
+ * Randomly generate array
+ * @param arraySize array size
+ * @param createItem Methods to generate array items
  * @returns
  */
 export const getRandomArray = (arraySize: number, createItem: () => any) => {
@@ -60,11 +60,11 @@ export const getRandomArray = (arraySize: number, createItem: () => any) => {
 }
 
 /**
- * 快速建立 response 結構
+ * Quickly create response structure
  * @param body response body
  * @param returnCode response returnCode
  * @param returnMsg response returnMsg
- * @returns response 結構
+ * @returns response structure
  */
 export const createRes = <T>(body: T, returnCode: string = '0000', returnMsg: string = ''): IBaseRes<T> => {
   return {

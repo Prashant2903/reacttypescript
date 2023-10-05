@@ -14,12 +14,12 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
 export const renderWithProviders = (
   ui: ReactElement,
   {
-    // 傳入特定 slice's state 來取代 init state
+    // Pass in a specific slice's state to replace the init state
     preloadedState = {},
-    // 當呼叫端不將 store 傳入時，可以自動建立預設 store 來使用
-    // 且依照傳入特定 slice 的 state 來取代 init state 進行測試
+    // When the caller does not pass in the store, a default store can be automatically created for use.
+    // And test according to the state passed into the specific slice instead of the init state
     store = initStore(preloadedState),
-    // 傳入特定 route path 作為初始位置
+    // Pass in a specific route path as the initial location
     route = '/',
     ...renderOptions
   }: ExtendedRenderOptions = {}

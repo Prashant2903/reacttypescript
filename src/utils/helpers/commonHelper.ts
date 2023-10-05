@@ -1,7 +1,7 @@
 import { t } from 'i18next'
 
 /**
- * 產生 guid
+ * generate guid
  * @returns guid
  */
 export const getGuid = () => {
@@ -13,9 +13,11 @@ export const getGuid = () => {
 }
 
 /**
- * 產生包含欄位名稱的必填欄位錯誤訊息文字
- * @param fieldName 欄位名稱
- * @returns 包含欄位名稱的必填欄位錯誤訊息
+ * Generates required field error message text including field name
+ * @param fieldName Field name
+ * @returns Required field error message including field name
+
+
  */
 export const getRequiredMsg = (fieldName: string) => {
   return t('__validation_required_with_name', { name: fieldName })

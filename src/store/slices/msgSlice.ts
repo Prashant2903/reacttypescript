@@ -4,7 +4,7 @@ import { IMsgBoxProps } from '@/components/MsgBox'
 
 export type GlobalMsg = Omit<IMsgBoxProps, 'isVisible' | 'onRequestClose'> & {
   /**
-   * 是否忽略其他佇列在後方的訊息顯示
+   * Whether to ignore other messages queued behind the display
    */
   isIgnoreRestMsg?: boolean
 };

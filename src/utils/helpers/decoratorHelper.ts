@@ -5,19 +5,19 @@ import i18n from '@/i18n'
 const ENUM_DESCRIPTION_METADATA_KEY = Symbol('EnumDescription')
 
 /**
- * 裝飾列舉屬性說明之方法
- * @param description 說明文字
- * @returns 列舉屬性裝飾函式
+ * How to decorate enumerated attribute descriptions
+ * @param description instructions
+ * @returns List property decorator function
  */
 export function EnumDescription(description: string): any {
   return Reflect.metadata(ENUM_DESCRIPTION_METADATA_KEY, description)
 }
 
 /**
- * 取得列舉(Enum)類別的 EnumDescription 設定
+ * Get the EnumDescription setting of the Enum class
  * @param target Enum class
- * @param value 值
- * @returns EnumDescription 設定值
+ * @param value value
+ * @returns EnumDescription setting value
  */
 export function getEnumDescription(target: any, value: any): string {
   // check property naming for enum snake upper case(example: HELLO_WORLD)
@@ -34,9 +34,9 @@ export function getEnumDescription(target: any, value: any): string {
 }
 
 /**
- * 取得列舉(Enum)類別的選單陣列
+ * Get the menu array of the Enum category
  * @param target Enum class
- * @returns 依照 EnumDescription 設定值產生的選單陣列
+ * @returns Menu array generated according to EnumDescription setting value
  */
 export function getEnumOptions(target: any): IOption[] {
   const regex = /^[A-Z]+(?:_[A-Z]+)*$/gm
@@ -57,9 +57,9 @@ export function getEnumOptions(target: any): IOption[] {
 }
 
 /**
- * 當 description 放置語系key值時，轉換成語系文字
- * @param description EnumDescription 設定值
- * @returns 語系文字
+ * When description places the language key value, it is converted into language text.
+ * @param description EnumDescription setting value
+ * @returns language script
  */
 const getI18nText = (description: string) => {
   if (description) {

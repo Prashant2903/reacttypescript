@@ -19,32 +19,32 @@ authListenerMiddleware.startListening({
     const { take, dispatch, getState /* getOriginalState */ } = listenerApi
     try {
       while (true) {
-        // 檢查目前是否為已登入狀態
+        // Check if you are currently logged in
         const getRootState = getState as () => RootState
         const isLogin = getRootState().app.isLogin
         if (isLogin === false) {
           // #############
-          // ### 未登入 ###
+          // ### Not logged in ###
           // #############
 
-          // [阻塞] 等待登入成功訊號
+          // [Blocking] Waiting for login success signal
           const [{ payload: { authToken } }] = await take(loginSuccess.match)
 
-          // 處理登入事宜
+          // Handle login
           dispatch(updateLoginInfo({ authToken, isLogin: true }))
 
-          // 回到原本欲訪問的頁面
+          // Return to the page you originally wanted to visit
           const redirectUrl = getQueryStrValue('redirect_url')
           redirectUrl ? appNavigate(redirectUrl) : appNavigate('/home/main')
         } else {
           // #############
-          // ### 已登入 ###
+          // ### Logged in ###
           // #############
 
-          // [阻塞] 等待登出要求訊號
+          // [Blocking] Waiting for logout request signal
           await take(isAnyOf(logout))
 
-          // 處理登出事宜
+          // Handle logout
           dispatch(updateLoginInfo({ authToken: '', isLogin: false }))
           appNavigate('/public/login')
         }
@@ -57,10 +57,10 @@ authListenerMiddleware.startListening({
       }
     }
 
-    // 如果 take 多個 action 時，可以這樣識別是哪個 action 符合
+    // If you take multiple actions, you can identify which action matches the
     // increment.match(action)
 
-    // 複雜狀態，如 state 變化，可以用 condition 做條件
+    // For complex states, such as state changes, condition can be used as a condition
     // const isLogoutDone = listenerApi.condition((action, currentState, previousState) => {
     //   const preState = previousState as RootState
     //   const curState = currentState as RootState

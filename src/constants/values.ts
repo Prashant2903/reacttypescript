@@ -1,4 +1,4 @@
 /**
- * 全站 date-fns 日期格式
+ * Site-wide date-fns date format
  */
 export const DATE_FORMAT = 'yyyy-MM-dd'

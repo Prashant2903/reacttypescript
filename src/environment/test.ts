@@ -1,4 +1,4 @@
 import developmentEnvironment from './development'
 
-// 單元測試的環境變數與開發環境一致
+// The environment variables of the unit test are consistent with the development environment
 export default developmentEnvironment

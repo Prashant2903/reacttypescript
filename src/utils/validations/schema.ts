@@ -2,20 +2,20 @@ import { t } from 'i18next'
 import * as yup from 'yup'
 
 /**
- * 建立自定義的 schema 邏輯
+ * Create custom schema logic
  */
 
 /**
- * 檢核字串長度是否在指定範圍內
- * @param min 最小字串長度值
- * @param max 最大字串長度值
+ * Check whether the string length is within the specified range
+ * @param min Minimum string length value
+ * @param max Maximum string length value
  * @returns schema
  */
 export const strLengthRangeSchema = (min = 0, max = 10) =>
   yup.string().nullable().test({
     name: 'strLengthRangeSchema',
     exclusive: true,
-    params: { min, max }, // 這裡的值會可以被帶到 message 中使用
+    params: { min, max }, // The value here can be brought to message for use
     message: t('__validation_strLengthRange', { min, max })!,
     test: (value) => {
       const valueStr = String(value)
@@ -24,8 +24,8 @@ export const strLengthRangeSchema = (min = 0, max = 10) =>
   })
 
 /**
-* 檢核數字的位數是否在範圍內
- * @param max 金額位數上限
+* Check whether the number of digits is within the range
+ * @param max Maximum amount of digits
  * @returns schema
 */
 export const maxDigitNumberSchema = (max = 1) =>

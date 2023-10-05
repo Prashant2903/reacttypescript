@@ -4,7 +4,7 @@ import AppLayout from '@/containers/AppLayout'
 interface IProps { }
 
 /**
- * 公開頁面的共用樣板
+ * Shared template for public pages
  */
 const Public = (props: IProps) => {
   return (

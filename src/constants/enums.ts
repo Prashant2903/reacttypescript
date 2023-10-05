@@ -1,12 +1,12 @@
 
 // ==================================
-// 定義列舉，避免 magic num or string
+// Define enumerations, avoid magic num or string
 // ==================================
 
 import { EnumDescription } from '@/utils/helpers/decoratorHelper'
 
 /**
- *  APP 運行環境
+ *  APP Operating environment
  */
 export enum AppEnvEnum {
   /**  development */
@@ -16,22 +16,19 @@ export enum AppEnvEnum {
 }
 
 /**
- *  APP 運行模式
+ *  APP operating mode
  */
 export enum AppModeEnum {
-  /**  DEV 模式 */
+  /**  DEV model */
   DEV = 'DEV',
-  /**  SIT 模式 */
+  /**  SIT model */
   SIT = 'SIT',
-  /**  UAT 模式 */
+  /**  UAT model */
   UAT = 'UAT',
-  /**  PROD 模式 */
+  /**  PROD model */
   PROD = 'PROD',
 }
 
-/**
- *  語系
- */
 export enum LangEnum {
   /**  en */
   EN = 'en',
@@ -40,22 +37,22 @@ export enum LangEnum {
 }
 
 // ==================================
-// 定義列舉選單，用於顯示前端固定的選單內容
+// Define a list menu to display fixed menu content on the front end
 // ==================================
 
 /**
- *  性別
+ *  gender
  */
 export class GenderEnum {
   /**
-   * 男性
+   * male
    */
-  @EnumDescription('__male' /* 男性 */)
+  @EnumDescription('__male')
   public static readonly MALE = '1'
 
   /**
    * 女性
    */
-  @EnumDescription('__female' /* 女性 */)
+  @EnumDescription('__female')
   public static readonly FEMALE = '2'
 }

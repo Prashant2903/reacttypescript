@@ -16,7 +16,7 @@ import {
 const sampleApi = baseApiService.injectEndpoints({
   endpoints: (builder) => ({
 
-    // 範例：發出 POST API 並取得 Image (快取:builder.query)
+    // Example: Issue POST API and get Image (cache:builder.query)
     SampleGetImg: builder.query<string, ISampleGetImgReq>({
       query: (req) => ({
         url: '/sample/get-img',
@@ -29,7 +29,7 @@ const sampleApi = baseApiService.injectEndpoints({
       })
     }),
 
-    // 範例：發出 GET API 並取得 JSON (無快取:builder.mutation)
+    // Example: Issue GET API and get JSON (no cache: builder.mutation)
     SampleGetProducts: builder.mutation<IBaseRes<ISampleGetProductsRes>, ISampleGetProductsReq>({
       query: (req) => ({
         url: `/sample/get-products?category=${req.category}`,
@@ -37,7 +37,7 @@ const sampleApi = baseApiService.injectEndpoints({
       })
     }),
 
-    // 範例：發出 POST API 並取得 JSON (無快取:builder.mutation)
+    // Example: Issue POST API and get JSON (no cache: builder.mutation)
     SampleGetUser: builder.mutation<IBaseRes<ISampleGetUserRes>, ISampleGetUserReq>({
       query: (req) => ({
         url: '/sample/get-user',

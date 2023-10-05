@@ -2,11 +2,11 @@ import '@testing-library/jest-dom'
 import { setupServer } from 'msw/node'
 
 // ===================================
-// 在執行每個 Test Suites 前會被執行一次
+// Will be executed once before executing each Test Suites
 // ===================================
 
 // ========
-// 必要載入
+// Required to load
 // ========
 import './utils/extensions/stringExtensions'
 import './i18n'
@@ -28,16 +28,16 @@ jest.mock('react-router-dom', () => ({
 export const mswServer = setupServer()
 
 beforeAll(() => {
-  // 啟動 API mocking
+  // API mocking
   mswServer.listen()
 })
 
 afterEach(() => {
-  // 重設 API Handles 避免沿用到其他測案的回應設定
+  //API Handles 
   mswServer.resetHandlers()
 })
 
 afterAll(() => {
-  // 關閉 API mocking
+  // API mocking
   mswServer.close()
 })

@@ -19,24 +19,26 @@ interface IProps extends IBaseModalProps {
 }
 
 const Modal = ({ className, isVisible, isCloseByBackdrop, isCloseByEsc, children, maxWidth, target, onRequestClose }: PropsWithChildren<IProps>) => {
-  // 將彈跳視窗移出到特定的元素上
+  // Move the popup window to a specific element
   const portalTarget = target || document.body
 
-  // 通知父層來請求關閉
+  // Notify the parent layer to request shutdown
+
+
   const requestCloseModal = useCallback(() => {
     isVisible && onRequestClose && onRequestClose()
   }, [isVisible, onRequestClose])
 
-  // 點選 Backdrop (非modal區塊) 來關閉彈跳視窗
+  // Click Backdrop (non-modal block) to close the pop-up window
   const modalRef = useRef<HTMLDivElement>(null)
   const isEnableClickMonitor = isVisible && isCloseByBackdrop === true
   useClickOutsideHandler(modalRef, () => requestCloseModal(), isEnableClickMonitor)
 
-  // 收到按下 Esc 鍵的事件時關閉彈跳視窗
+  // Close the popup window when the Esc key is pressed
   const isEnableKeyMonitor = isVisible && isCloseByEsc === true
   useKeyDownHandler(e => e.key === 'Escape' && requestCloseModal(), isEnableKeyMonitor)
 
-  // 讓畫面被鎖定來避免畫面滾動的混亂
+  // Keep the screen locked to avoid scrolling chaos
   useEffect(() => {
     isVisible ? freezeBody() : unfreezeBody()
 

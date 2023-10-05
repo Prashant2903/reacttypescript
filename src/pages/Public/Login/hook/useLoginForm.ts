@@ -21,9 +21,9 @@ const useLoginForm = (initValues: IFormValues) => {
 
   const validationSchema = () =>
     yup.object({
-      // 如果必填錯誤訊息需要欄位名稱，就這樣覆寫訊息，只需傳入欄位名稱
+      // If a required error message requires a field name, overwrite the message like this and just pass in the field name
       userId: yup.string().required(getRequiredMsg(t('__account'))),
-      // 如果必填錯誤訊息不需要欄位名稱，就回應預設通用訊息"請輸入資訊"
+      // If a required error message does not require a field name, respond to the default generic message "Please enter information"
       pcode: yup.string().required()
     })
 
@@ -34,7 +34,7 @@ const useLoginForm = (initValues: IFormValues) => {
     if (returnCode.isSuccessCode()) {
       dispatch(loginSuccess({ authToken: body.authCode }))
     } else {
-      showMsgBox({ title: '登入', content: `登入失敗(${returnCode}:${returnMsg})` })
+      showMsgBox({ title: 'login', content: `Login failed(${returnCode}:${returnMsg})` })
     }
     actions.setSubmitting(false)
   }

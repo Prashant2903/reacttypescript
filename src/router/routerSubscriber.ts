@@ -1,6 +1,6 @@
 import { RouterSubscriber } from '@remix-run/router'
 const routerSubscriber: RouterSubscriber = routerState => {
-  // 可以定義路由變化需要統一調整的邏輯於此
+  // You can define the logic that requires unified adjustment for routing changes here.
   // console.log(routerState.location)
 }
 

@@ -6,11 +6,11 @@ import { getRequiredMsg } from '@/utils/helpers/commonHelper'
 import { strLengthRangeSchema } from '@/utils/validations/schema'
 import schemaChain from '@/utils/validations/schemaChain'
 
-// 說明 Hook 使用時機：
-// - 不是只有因為需要共用才需要拆 Hook 出來
-// - 當頁面邏輯太複雜，也可以拆出 Hook 降低頁面複雜度
+// Explain when to use Hook:
+// - It is not necessary to remove Hook only because it needs to be shared.
+// - When the page logic is too complex, you can also remove the Hook to reduce the page complexity
 
-// 定義表單資料
+// Define form data
 interface IFormValues {
   account: string
   password: string
@@ -22,32 +22,32 @@ const useSampleForm = (initValues: IFormValues) => {
   const { t } = useTranslation()
   const [initFormValues, setInitFormValues] = useState(initValues)
 
-  // 檢核邏輯
+  // Check logic
   const validationSchema = () =>
     yup.object({
       account:
-        // 如果必填錯誤訊息需要欄位名稱，就這樣覆寫訊息，只需傳入欄位名稱
-        yup.string().required(getRequiredMsg(t('__account' /* 帳號 */)))
-          .max(5), // 內建邏輯
+        // If a required error message requires a field name, overwrite the message like this and just pass in the field name
+        yup.string().required(getRequiredMsg(t('__account' /* account number */)))
+          .max(5), // Built-in logic
       password:
-        // 如果必填錯誤訊息不需要欄位名稱，就回應預設通用訊息"請輸入資訊"
+        // If a required error message does not require a field name, respond with the default generic message "Please enter information
         yup.string().required()
-          .concat(strLengthRangeSchema(2, 10)), // 自定邏輯
+          .concat(strLengthRangeSchema(2, 10)), // custom logic
       age:
-        // 數字在非必填時，必須加上 nullable 來允許 null 值
-        yup.number().nullable(), // 內建邏輯
+        // When a number is not required, nullable must be added to allow null values.
+        yup.number().nullable(), // Built-in logic
       salary:
         schemaChain
-          .twMoneyAmt(false, t('__salary' /* 月薪 */)!) // 自定邏輯串(針對通用且有意義性的資料類型)
+          .twMoneyAmt(false, t('__salary' /* monthly salary */)!) // Custom logical string (for common and meaningful data types)
     })
 
-  // 送出表單
+  // Submit form
   const onFormSubmit = (values: IFormValues, actions: FormikHelpers<IFormValues>) => {
     alert(JSON.stringify(values, null, 2))
     actions.setSubmitting(false)
   }
 
-  // 回傳表單資訊給使用組件
+  // Return form information to the consuming component
   return { initFormValues, setInitFormValues, validationSchema, onFormSubmit }
 }
 

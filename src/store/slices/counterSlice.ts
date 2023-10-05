@@ -48,7 +48,7 @@ export const incrementAsync =
   })
 
 export const incrementAsyncSimple =
-  // 以手動方式建立 thunk 方法，但無法在 Redux Dev Tool 追蹤
+  // Creating thunk method manually but not tracing it in Redux Dev Tool
   (amount: number): AppThunk<Promise<{ counter: number }>> =>
     async (dispatch, getState) => {
       // call api

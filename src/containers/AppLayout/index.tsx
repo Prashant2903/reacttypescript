@@ -39,7 +39,7 @@ const AppLayout = (props: PropsWithChildren<IProps>) => {
 
         <ul className='app-header__nav'>
 
-          {/* 未登入選單 */}
+          {/* Not logged in menu */}
           {!isLogin && <>
 
             <li className='app-header__nav-item'>
@@ -51,7 +51,7 @@ const AppLayout = (props: PropsWithChildren<IProps>) => {
             </li>
           </>}
 
-          {/* 已登入選單 */}
+          {/* Logged into the menu */}
           {isLogin && <>
 
             <li className='app-header__nav-item'>

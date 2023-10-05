@@ -5,7 +5,7 @@ import { showMsgBox } from '@/utils/helpers/msgHelper'
 import { logout } from '../slices/appSlice'
 
 /**
- * 攔截 api 回應異常的狀況來進行統一的邏輯處置
+ * Interception API responds to abnormal situations for unified logical processing
  */
 const apiErrorHandleMiddleware =
   ({ dispatch, getState }: MiddlewareAPI<AppDispatch, RootState>) =>
@@ -17,20 +17,20 @@ const apiErrorHandleMiddleware =
           if (httpCode) {
             switch (httpCode) {
               case 'FETCH_ERROR':
-                // 用戶端網路異常，連不到伺服器
+                // The client network is abnormal and cannot connect to the server.
                 showMsgBox({
-                  title: '錯誤',
-                  content: '網路連線不穩定，請稍候再試',
+                  title: 'mistake',
+                  content: 'The network connection is unstable, please try again later.',
                   hasCloseBtn: true
                 })
 
                 break
 
               case 401:
-                // 無權限訪問站台
+                // No permission to access the site
                 showMsgBox({
-                  title: '錯誤',
-                  content: '無權限訪問站台，請重新登入',
+                  title: 'mistake',
+                  content: 'No permission to access the site, please log in again',
                   mainBtn: {
                     label: 'Ok',
                     onClick: () => {
@@ -44,10 +44,10 @@ const apiErrorHandleMiddleware =
                 break
 
               default:
-                // 伺服器回應非200的狀態碼
+                // Server responds with status code other than 200
                 showMsgBox({
-                  title: '錯誤',
-                  content: `目前系統忙碌中，請稍後再試！(${httpCode})`,
+                  title: 'mistake',
+                  content: `The system is currently busy, please try again later.！(${httpCode})`,
                   hasCloseBtn: true
                 })
 

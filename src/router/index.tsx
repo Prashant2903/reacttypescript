@@ -6,8 +6,8 @@ import { AppEnvEnum } from '@/constants/enums'
 import environment from '@/environment'
 import routerSubscriber from './routerSubscriber'
 
-// 使用動態載入方式(code splitting)，避免剛訪問網站時就取得整包不一定會用到的 js 檔案
-// 請依照頁面類型分組，打包會依照分組獨立成一份以 webpackChunkName 設定名稱之 js 檔案
+// Use dynamic loading (code splitting) to avoid getting the entire package of js files that may not be used when you first visit the website.
+// Please group according to the page type. The packaging will be separated into a js file with a name set by webpackChunkName according to the grouping.
 const HomeLayout = lazy(() => import(/* webpackChunkName: "home" */ '@/pages/Home'))
 const EditProfile = lazy(() => import(/* webpackChunkName: "home" */ '@/pages/Home/EditProfile'))
 const Main = lazy(() => import(/* webpackChunkName: "home" */ '@/pages/Home/Main'))
@@ -25,9 +25,9 @@ const router = createBrowserRouter([
     path: '/',
     element: <App />,
     children: [
-      { index: true, element: <Navigate to='public' replace /> },
+      { index: true, element: <Navigate to='home' replace /> },
 
-      /* [公開頁面區] */
+      /* Public Page Area */
       {
         path: 'public',
         element: Suspense(<PublicLayout />),
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
         ]
       },
 
-      /* [私有頁面區] */
+      /* Private Page Area */
       {
         path: 'home',
         element: Suspense(<HomeLayout />),
@@ -50,7 +50,7 @@ const router = createBrowserRouter([
         ]
       },
 
-      /* [開發專用頁面區] */
+      /* Development Specific Page Area */
       environment.appEnv === AppEnvEnum.DEVELOPMENT
         ? {
           path: 'dev',
@@ -63,7 +63,7 @@ const router = createBrowserRouter([
         }
         : {},
 
-      /* [預設頁面] */
+      /* Default Page */
       { path: '*', element: <Navigate to='public' replace /> }
 
     ]
@@ -72,12 +72,12 @@ const router = createBrowserRouter([
   basename: process.env.PUBLIC_URL
 })
 
-// 訂閱路由變化事件
+// Subscribe to route change events
 router.subscribe(routerSubscriber)
 
-// 提供給組件外可以使用的轉址方法
-// - 在組件內使用 useNavigator 提供的 navigate 方法會包含 basename
-// - 但直接使用 router.navigate 不包含 basename，所以我們要在封裝起來
+// Provides a redirection method that can be used outside the component
+// - Using the navigate method provided by useNavigator within the component will contain basename
+// - But using router.navigate directly does not contain basename, so we need to encapsulate it
 export const appNavigate = (url: string) => {
   router.navigate({ pathname: router.basename + url })
 }

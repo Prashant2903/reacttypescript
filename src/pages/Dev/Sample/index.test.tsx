@@ -10,12 +10,12 @@ import { rest } from 'msw'
 import { createRes, getApiUrl } from '@/mocks/mockHelper'
 import { ISampleGetUserRes } from '@/services/models/sample'
 
-describe('測試 Sample 範例頁面', () => {
+describe('Test Sample page', () => {
   // =========================
   // Lifecycle for testing
   // =========================
   beforeEach(() => {
-    // 因 Sample 頁面載入時就會馬上呼叫以下 api，所以統一在這邊定義 api mock
+    // Because the following api will be called immediately when the Sample page is loaded, the api mock is defined here.
     mswServer.use(
       rest.post(getApiUrl('/sample/get-img'), (req, res, ctx) => {
         const imageBuffer = new ArrayBuffer(20)
@@ -34,18 +34,18 @@ describe('測試 Sample 範例頁面', () => {
   // Testing DOM
   // =========================
 
-  test('傳入 props 顯示在對應 DOM 位置', async () => {
+  test('The incoming props are displayed in the corresponding DOM location', async () => {
     // Arrange
-    const title = '這個是標題'
+    const title = 'This is the title'
     renderWithProviders(<Sample title={title} />)
 
     // Assert
     expect(screen.getByTestId('title')).toHaveTextContent(title)
   })
 
-  test('傳入 props 顯示在對應 DOM 位置(更新 props 值)', () => {
+  test('The incoming props are displayed in the corresponding DOM location (update props value)', () => {
     // Arrange1
-    const title1 = '這個是標題1'
+    const title1 = 'This is title 1'
     const { rerender } = renderWithProviders(
       <Sample title={title1} />
     )
@@ -53,7 +53,7 @@ describe('測試 Sample 範例頁面', () => {
     expect(screen.getByTestId('title')).toHaveTextContent(title1)
 
     // Arrange2 (更改傳入值)
-    const title2 = '這個是標題2'
+    const title2 = 'This is title 2'
     rerender(
       <Sample title={title2} />
     )
@@ -65,15 +65,14 @@ describe('測試 Sample 範例頁面', () => {
   // Testing Function
   // =========================
 
-  test('測試 callback function 是否被執行', async () => {
+  test('Test whether the callback function is executed', async () => {
     // Arrange
     const onSomethingDoneFn = jest.fn()
     renderWithProviders(<Sample onSomethingDone={onSomethingDoneFn} />)
 
     // Act
     const doSomethingBtn = screen.getByTestId('doSomethingBtn')
-    userEvent.click(doSomethingBtn) // 模擬使用者點擊
-
+    userEvent.click(doSomethingBtn) // Simulate user clicks
     // Assert
     expect(onSomethingDoneFn).toBeCalledTimes(1)
   })
@@ -82,25 +81,25 @@ describe('測試 Sample 範例頁面', () => {
   // Testing Navigate
   // =========================
 
-  test('測試 useNavigate 導頁', async () => {
+  test('Test the useNavigate navigation page', async () => {
     // Arrange
     renderWithProviders(<Sample />)
 
     // Act
     const goUser01Btn = screen.getByTestId('goUser01Btn')
-    userEvent.click(goUser01Btn) // 模擬使用者點擊
+    userEvent.click(goUser01Btn) // Simulate user clicks
 
     // Assert
     expect(mockedUseNavigate).toHaveBeenCalledWith('/dev/sample/user01')
   })
 
-  test('測試 link 導頁', async () => {
+  test('Test link guide page', async () => {
     // Arrange
     renderWithProviders(<Sample />, { route: '/' })
 
     // Act
     const goUser03Link = screen.getByTestId('goUser03Link')
-    userEvent.click(goUser03Link) // 模擬使用者點擊
+    userEvent.click(goUser03Link) // Simulate user clicks
 
     // Assert
     const url = new URL(window.location.href)
@@ -115,9 +114,9 @@ describe('測試 Sample 範例頁面', () => {
 
   test('操作 store 執行 dispatch 變更 redux 狀態', () => {
     // Arrange
-    // 測案需指定初始 state 時才需要設定 preloadedState
-    // 注意：如果指定 app slice 狀態而已，
-    //      對於其他 slice 並不會有影響，會使用預設的 initial state
+    // PreloadedState needs to be set only when the test case needs to specify the initial state.
+    // Note: If you specify app slice status only,
+    //     It will not affect other slices, and the default initial state will be used.
     const preloadedState: PreloadedState<RootState> = {
       app: {
         isLogin: false,
@@ -143,16 +142,16 @@ describe('測試 Sample 範例頁面', () => {
 
   test('操作 component 執行 dispatch 變更 redux 狀態', async () => {
     // Arrange
-    // 測案需指定初始 state 時才需要設定 preloadedState
-    // 注意：如果指定 counter slice 狀態而已，
-    //      對於其他 slice 並不會有影響，會使用預設的 initial state
+    // PreloadedState needs to be set only when the test case needs to specify the initial state.
+    // Note: If you specify the counter slice status only，
+    //      It will not affect other slices, and the default initial state will be used.
     const { store } = renderWithProviders(<Sample />, {
       preloadedState: { counter: { value: 99 } }
     })
 
     // Act
     const addCounterBtn = screen.getByTestId('addCounterBtn')
-    userEvent.click(addCounterBtn) // 模擬使用者點擊
+    userEvent.click(addCounterBtn) // Simulate user clicks
 
     // Assert
     const counterState = store.getState().counter
@@ -160,10 +159,10 @@ describe('測試 Sample 範例頁面', () => {
   })
 
   // =========================
-  // Testing API(整合測試)
+  // Testing API(Integration testing)
   // =========================
 
-  test('測試呼叫 API 並把結果顯示在畫面', async () => {
+  test('Test calls to the API and displays the results on the screen', async () => {
     // Arrange
     mswServer.use(
       rest.post(getApiUrl('/sample/get-user'), (req, res, ctx) => {
@@ -175,14 +174,14 @@ describe('測試 Sample 範例頁面', () => {
 
     // Act
     const callSampleGetUserApiBtn = screen.getByTestId('callSampleGetUserApiBtn')
-    userEvent.click(callSampleGetUserApiBtn) // 模擬使用者點擊
+    userEvent.click(callSampleGetUserApiBtn) // Simulate user clicks
 
     // Assert
-    // 找 element 中的文字要全正確 (找不到就失敗，不用 expect)
+    // The text found in element must be all correct (if it cannot be found, it will fail, no need to expect)
     await screen.findByText('username : chris chen')
-    // 找 element 中的部分文字要正確 (找不到就失敗，不用 expect)
+    // Find part of the text in element to be correct (fail if not found, no need to expect)
     await screen.findByText('chris chen', { exact: false })
-    // 非同步要用 waitFor 等待，並透過 testid 找到 element 來比較 expect 文字
+    // If it is asynchronous, use waitFor to wait, and find the element through testid to compare the expect text.
     await waitFor(() => expect(screen.getByTestId('username')).toHaveTextContent('chris chen'))
   })
 })

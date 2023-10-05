@@ -1,11 +1,13 @@
 import { AppModeEnum } from '@/constants/enums'
 import developmentEnvironment from './development'
 
-// 全部皆以 development 設置為基礎
+// All based on development settings
+
+
 let productionEnvironment = developmentEnvironment
 
-// 僅調整與 development 有差別的部分就好
-// 依據不同建置模式下使用不同的常數值
+// Just adjust the parts that are different from development
+// Use different constant values ​​according to different build modes
 switch (productionEnvironment.appMode) {
   case AppModeEnum.SIT:
     productionEnvironment = { ...productionEnvironment, apiUrl: 'https://xxx.sit/tw/api/' }

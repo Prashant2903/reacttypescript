@@ -12,11 +12,11 @@ const Login = (props: IProps) => {
   const navigate = useNavigate()
   const isLogin = useAppSelector(s => s.app.isLogin)
 
-  // 範例：formik (邏輯抽出至 hook 來降低此組件的複雜度)
+  // Example: formik (extract logic to hook to reduce the complexity of this component)
   const form = useLoginForm({ userId: '', pcode: '' })
 
   useEffect(() => {
-    // 已登入用戶，直接轉向登入後首頁
+    // Logged-in users will be redirected directly to the homepage after login.
     if (isLogin) navigate('/home')
   }, [isLogin, navigate])
 

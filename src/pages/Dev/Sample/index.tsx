@@ -27,33 +27,33 @@ interface IProps {
 }
 
 const Sample = (props: IProps) => {
-  // 範例：route
+  // Example: route
   const navigate = useNavigate()
   const { userId } = useParams() // get params from url
 
-  // 範例：i18n
+  // Example: i18n
   const { t, i18n } = useTranslation()
   const changeLang = (lang: string) => {
     i18n.changeLanguage(lang)
     storage.lang = lang
   }
 
-  // 範例：select items from enum
+  // Example: select items from enum
   const [selectedGender, setSelectedGender] = useState(GenderEnum.MALE)
 
-  // 範例：formik (邏輯抽出至 hook 來降低此組件的複雜度)
+  // Example: formik (extract logic to hook to reduce the complexity of this component)
   const form = useSampleForm({ account: '', password: '', age: null, salary: null })
 
-  // 範例：redux
+  // Example: redux
   const counterValue = useAppSelector(state => state.counter.value)
   const counterValueSame = useAppSelector(selectCount)
   const dispatch = useAppDispatch()
 
-  // 範例：hook
+  // Example: hook
   const targetDiv = useRef<HTMLElement>(null)
   useClickOutsideHandler(targetDiv, () => console.log('outside of the area clicked!!'), true)
 
-  // 範例：call mutation api (no cached)
+  // Example: call mutation api (no cached)
   const loadingApiCounter = useAppSelector(selectLoadingApiCounter)
   const [apiSampleGetProducts] = sampleApi.useSampleGetProductsMutation()
   const handleCallSampleGetProductsApi = async () => {
@@ -79,18 +79,18 @@ const Sample = (props: IProps) => {
     }
   }
 
-  // 範例：call query api (cached) - 直接執行
-  // => 請參考 <SampleImg /> 組件內容，載入即執行圖片下載並快取
+  // Example: call query api (cached) - direct execution
+  // => Please refer to the <SampleImg /> component content, and the image will be downloaded and cached upon loading.
 
-  // 範例：call query api (cached) - 手動執行
+  // Example: call query api (cached) - manual execution
   const [lazyBase64Img, setLazyBase64Img] = useState('')
-  const [apiSampleGetImg] = sampleApi.useLazySampleGetImgQuery() // 自定呼叫api時間
+  const [apiSampleGetImg] = sampleApi.useLazySampleGetImgQuery() // Custom call api time
   const handleCallLazyCachedApi = async () => {
     const img = await apiSampleGetImg({ height: 200, width: 800 }, true /* cached */).unwrap()
     setLazyBase64Img(img)
   }
 
-  // 範例：彈跳視窗樣板設計＆通用文字訊息彈跳視窗呼叫方式
+  // Example: Pop-up window template design & general text message pop-up window call method
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [isLocalMsgBoxVisible, setIsLocalMsgBoxVisible] = useState(false)
 
@@ -101,7 +101,7 @@ const Sample = (props: IProps) => {
     <h1>Dev - Sample Page</h1>
 
     <section className='section'>
-      <h2 className='section__title'>開發環境</h2>
+      <h2 className='section__title'>development environment</h2>
       <ul>
         <li>env: {environment.appEnv}</li>
         <li>mode: {environment.appMode}</li>
@@ -109,7 +109,7 @@ const Sample = (props: IProps) => {
     </section>
 
     <section className='section'>
-      <h2 className='section__title'>使用導航</h2>
+      <h2 className='section__title'>Use navigation</h2>
       user id from url: {userId}
       <br />
       <input type='button' value='go to /dev/sample/user01' onClick={() => { navigate('/dev/sample/user01') }} data-testid='goUser01Btn' />
@@ -120,15 +120,15 @@ const Sample = (props: IProps) => {
     </section>
 
     <section className='section' >
-      <h2 className='section__title'>使用Enum產生選單</h2>
+      <h2 className='section__title'>Use Enum to generate menus</h2>
       <div>
-        <p>使用 GenderEnum 產生選單</p>
+        <p>Use GenderEnum to generate menus</p>
         <select name='gender' id='gender' value={selectedGender} onChange={e => setSelectedGender(e.target.value)}>
           {getEnumOptions(GenderEnum).map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
         </select>
       </div>
       <div>
-        可以使用 GenderEnum 值取得定義的 description 文字
+        The defined description text can be obtained using the GenderEnum value
       </div>
       <input type='button' value='get description' onClick={() => {
         const description = getEnumDescription(GenderEnum, selectedGender)
@@ -137,7 +137,7 @@ const Sample = (props: IProps) => {
     </section>
 
     <section className='section'>
-      <h2 className='section__title'>多國語系</h2>
+      <h2 className='section__title'>Multilingual</h2>
       <ul>
         <li>Current Language: {i18n.language}</li>
         <li>{t('__understand')}</li>
@@ -148,7 +148,7 @@ const Sample = (props: IProps) => {
     </section>
 
     <section className='section'>
-      <h2 className='section__title'>表單檢核</h2>
+      <h2 className='section__title'>form check</h2>
 
       <Formik
         enableReinitialize
@@ -160,41 +160,41 @@ const Sample = (props: IProps) => {
           <Form >
 
             <div className='input-group'>
-              <label className='input-group__label' htmlFor='account' > {t('__account' /* 帳號 */)}</label>
+              <label className='input-group__label' htmlFor='account' > {t('__account' /* account number */)}</label>
               <FormTextInput className='input-group__input' id='account' name='account' type='text' />
             </div>
 
             <div className='input-group'>
-              <label className='input-group__label' htmlFor='password' > {t('__pwd' /* 密碼 */)} </label>
+              <label className='input-group__label' htmlFor='password' > {t('__pwd' /* password */)} </label>
               <FormTextInput className='input-group__input' id='password' name='password' type='password' />
             </div>
 
             <div className='input-group'>
-              <label className='input-group__label' htmlFor='age' > {t('__age' /* 年齡 */)} </label>
+              <label className='input-group__label' htmlFor='age' > {t('__age' /* age */)} </label>
               <FormTextInput className='input-group__input' id='age' name='age' type='number' />
             </div>
 
             <div className='input-group'>
-              <label className='input-group__label' htmlFor='salary' > {t('__salary' /* 月薪 */)} </label>
-              <FormTextInput className='input-group__input' id='salary' name='salary' type='number' caption={t('__useTwd' /* 使用臺幣為單位 */)} />
+              <label className='input-group__label' htmlFor='salary' > {t('__salary' /* monthly salary */)} </label>
+              <FormTextInput className='input-group__input' id='salary' name='salary' type='number' caption={t('__useTwd' /* Use Taiwan dollars as the unit */)} />
             </div>
 
             <input
               type='button'
               onClick={() => resetForm({ values: form.initFormValues })}
-              value={t('__clear' /* 清除 */)!} />
+              value={t('__clear' /* Clear */)!} />
 
             <input
               type='submit'
               disabled={!(dirty && isValid)}
-              value={t('__submit' /* 送出 */)!} />
+              value={t('__submit' /* send */)!} />
 
             <br />
 
             <input
               type='button'
               onClick={() => form.setInitFormValues({ ...form.initFormValues, salary: values.salary !== null ? values.salary + 1 : 0 })}
-              value={'搭配 enableReinitialize 重新給予初始值來 re-init 表單（可能是從遠端來的資料）'} />
+              value={'Use enableReinitialize to re-give the initial value to re-init the form (may be data from the remote end)'} />
 
           </Form>
         )}
@@ -220,8 +220,8 @@ const Sample = (props: IProps) => {
     </section>
 
     <section className='section' ref={targetDiv}>
-      <h2 className='section__title'>自定義 Hook </h2>
-      <p>超過這個區域點擊時，console會有訊息</p>
+      <h2 className='section__title'>Custom Hook</h2>
+      <p>When clicking beyond this area, there will be a message in the console.</p>
       <p>line1------</p>
       <p>line2------</p>
       <p>line3------</p>
@@ -231,27 +231,27 @@ const Sample = (props: IProps) => {
       <h2 className='section__title'>呼叫api</h2>
       <p>loadingApiCounter: {loadingApiCounter}</p>
       <div>
-        <h3>mutation(無快取)</h3>
-        <input type='button' value='call SampleGetProducts api(不列入loader)' onClick={handleCallSampleGetProductsApi} /> <br />
-        <input type='button' value='call SampleGetUser api(有列入loader)' onClick={handleCallSampleGetUserApi} data-testid='callSampleGetUserApiBtn' />
+        <h3>mutation (no cache)</h3>
+        <input type='button' value='call SampleGetProducts api(Not included in loader)' onClick={handleCallSampleGetProductsApi} /> <br />
+        <input type='button' value='call SampleGetUser api(Included in loader)' onClick={handleCallSampleGetUserApi} data-testid='callSampleGetUserApiBtn' />
         {username && <p data-testid='username'>username : {username}</p>}
       </div>
       <div>
-        <h3> query(有快取)</h3>
-        <p>使用 query 直接執行 SampleGetImg api 取得圖片</p>
+        <h3> query (with cache)</h3>
+        <p>Use query to directly execute SampleGetImg api to obtain images</p>
         <SampleImg width={800} height={200} />
       </div>
       <div>
-        <span>使用 query-lazy 手動執行 SampleGetImg api 取得圖片</span>
+        <span>Use query-lazy to manually execute SampleGetImg api to obtain images</span>
         <input type='button' value='get image' onClick={handleCallLazyCachedApi} />
         <div> <img alt='' src={lazyBase64Img} /> </div>
       </div>
     </section>
 
     <section className='section'>
-      <h2 className='section__title'>單元測試的附加情境</h2>
+      <h2 className='section__title'>Additional scenarios for unit testing</h2>
       <div>
-        <input data-testid='doSomethingBtn' type='button' value='呼叫組件傳入的callback'
+        <input data-testid='doSomethingBtn' type='button' value='Call the callback passed in by the component'
           onClick={() => { props?.onSomethingDone && props.onSomethingDone() }} /> <br />
         <p data-testid='title'>{props.title}</p>
       </div>
@@ -259,21 +259,21 @@ const Sample = (props: IProps) => {
     </section>
 
     <section className='section'>
-      <h2 className='section__title'>彈跳視窗樣板設計＆通用文字訊息彈跳視窗呼叫方式</h2>
+      <h2 className='section__title'>Pop-up window template design & universal text message pop-up window call method</h2>
       <div>
-        <input type='button' value='顯示基礎 Modal 彈跳視窗' onClick={() => { setIsModalVisible(true) }} />
-        <input type='button' value='顯示組裝 Modal 後的 MsgBox 彈跳視窗' onClick={() => { setIsLocalMsgBoxVisible(true) }} />
-        <input type='button' value='使用 App 通用訊息佇列來顯示訊息(發兩則)' onClick={() => {
+        <input type='button' value='Show basic Modal popup window' onClick={() => { setIsModalVisible(true) }} />
+        <input type='button' value='Display the MsgBox pop-up window after assembling the Modal' onClick={() => { setIsLocalMsgBoxVisible(true) }} />
+        <input type='button' value="Use the app\'s universal message queue to display messages (send two)" onClick={() => {
           showMsgBox({
-            content: '這是第一個訊息。',
-            title: '訊息佇列',
-            mainBtn: { label: '我知道了', onClick: () => console.log('我知道了') },
+            content: 'This is the first message',
+            title: 'message queue',
+            mainBtn: { label: 'I see', onClick: () => console.log('I see') },
             minorBtn: { label: '關閉' }
           })
           showMsgBox({
-            content: '這是第二個訊息，多了右上 x 關閉鈕，可以點擊關閉，亦可按下 Esc 或點擊非彈跳視窗區域關閉。',
-            title: '訊息佇列',
-            mainBtn: { label: '確定' },
+            content: 'This is the second message. There is an x ​​close button in the upper right corner. You can click to close it, or you can press Esc or click on the non-pop-up window area to close it.',
+            title: 'message queues',
+            mainBtn: { label: 'Sure' },
             hasCloseBtn: true
           })
         }} />
@@ -283,13 +283,13 @@ const Sample = (props: IProps) => {
           isCloseByBackdrop
           isCloseByEsc
           onRequestClose={() => setIsModalVisible(false)} >
-          <div>這是 Modal 組件，只有外框，提供基礎功能</div>
-          <div>可以自行組裝出需要的視窗內容組件</div>
+          <div>This is a Modal component with only an outer frame and provides basic functions.</div>
+          <div>You can assemble the required window content components by yourself</div>
         </Modal>
 
         <MsgBox
           title='Information'
-          content='這是使用 Modal 組件組裝後的 MsgBox 組件'
+          content='This is the MsgBox component assembled using the Modal component'
           isVisible={isLocalMsgBoxVisible}
           mainBtn={{ label: 'Ok', onClick: () => console.log('ok clicked') }}
           minorBtn={{ label: 'Cancel' }}

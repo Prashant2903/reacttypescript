@@ -39,7 +39,7 @@ const resources = {
   en: {
     translation: en
   },
-  'zh-TW': {
+  zh: {
     translation: zh
   }
 }

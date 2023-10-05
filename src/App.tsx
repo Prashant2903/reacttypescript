@@ -19,7 +19,7 @@ function App() {
   const initApplication = useCallback(
     async () => {
       if (isInitApp.current === false) {
-        // 初始網站，執行進入網站前必備的流程
+        // Initial website, perform the necessary procedures before entering the website
         isInitApp.current = true
         const resultAction = await dispatch(initAppAsync())
         const isSuccess = unwrapResult(resultAction)
@@ -36,18 +36,18 @@ function App() {
       {/* api loader */}
       {loadingApiCounter > 0 && <LoadingMask />}
 
-      {/* 識別環境 */}
+      {/* Identify the environment */}
       {environment.appMode !== AppModeEnum.PROD && (
         <div className='env-info'>Mode: {process.env.REACT_APP_MODE}</div>
       )}
 
-      {/* 全域文字訊息彈跳視窗 */}
+      {/* Global text message pop-up window */}
       {currentGlobalMsg && <MsgBox
         {...currentGlobalMsg}
         isVisible
         onRequestClose={() => { dispatch(removeCurrentGlobalMsg()) }} />}
 
-      {/* 子路由插入點 */}
+      {/* subroute insertion point */}
       {isInitAppSuccess && <Outlet />}
 
     </div>

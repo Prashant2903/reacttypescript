@@ -4,14 +4,14 @@ import { AppDispatch, RootState } from '..'
 import { addLoadingApi, removeLoadingApi } from '../slices/appSlice'
 
 /**
- * 不列入 loading api 計算的清單
+ * Not included in the list calculated by the loading api
  */
 const ignoreLoadingList = [
   'SampleGetProducts'
 ]
 
 /**
- * 攔截 api 執行狀態去更新正在 loading api 數量
+ * Intercept the api execution status to update the loading api quantity. Intercept the api execution status to update the loading api quantity.
  */
 const apiLoadingMiddleware =
   ({ dispatch }: MiddlewareAPI<AppDispatch, RootState>) =>

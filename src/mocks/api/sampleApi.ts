@@ -15,7 +15,7 @@ import {
 
 const sampleApi = [
 
-  // 範例：處理 POST API 並回傳 Image
+  // Example: Process POST API and return Image
   rest.post(getApiUrl('/sample/get-img'), async (req, res, ctx) => {
     const { body: { width, height } } = await req.json<IBaseReq<ISampleGetImgReq>>()
     const imageBuffer = await fetch(
@@ -31,7 +31,7 @@ const sampleApi = [
     )
   }),
 
-  // 範例：處理 GET API 並回傳 JSON
+  // Example: Handle GET API and return JSON
   rest.get(getApiUrl('/sample/get-products'), (req, res, ctx) => {
     const urHeader = req.headers.get('ur-header') ?? ''
     const category = req.url.searchParams.get('category')
@@ -53,7 +53,7 @@ const sampleApi = [
     )
   }),
 
-  // 範例：處理 POST API 並回傳 JSON
+  // Example: Handle POST API and return JSON
   rest.post(getApiUrl('/sample/get-user'), async (req, res, ctx) => {
     const { body: { userId } } = await req.json<IBaseReq<ISampleGetUserReq>>()
     const response = createRes<ISampleGetUserRes>({
